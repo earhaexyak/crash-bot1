@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>تسجيل الدخول - لوحة التحكم</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; background:#0f1117; color:#eee;
+           display:flex; align-items:center; justify-content:center; height:100vh; margin:0;}
+    .box { background:#1a1d29; padding:32px; border-radius:12px; width:320px; box-shadow:0 0 30px #0006;}
+    h2 { margin-top:0; color:#7c5cff;}
+    input { width:100%; padding:10px; margin:8px 0; border-radius:6px; border:1px solid #333;
+            background:#0f1117; color:#eee; box-sizing:border-box;}
+    button { width:100%; padding:10px; background:#7c5cff; border:none; border-radius:6px;
+             color:#fff; font-weight:bold; cursor:pointer; margin-top:10px;}
+    button:hover { background:#6a4ce0; }
+    .flash { background:#3a1f1f; color:#ff8080; padding:8px; border-radius:6px; margin-bottom:10px;}
+  </style>
+</head>
+<body>
+  <form class="box" method="post">
+    <h2>🚀 Crash Admin</h2>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}{% for m in messages %}<div class="flash">{{ m }}</div>{% endfor %}{% endif %}
+    {% endwith %}
+    <input type="text" name="username" placeholder="اسم المستخدم" required autofocus>
+    <input type="password" name="password" placeholder="كلمة المرور" required>
+    <button type="submit">دخول</button>
+  </form>
+</body>
+</html>

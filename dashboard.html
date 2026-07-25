@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>لوحة التحكم - Crash Game</title>
+  <style>
+    body { font-family:'Segoe UI', Tahoma, sans-serif; background:#0f1117; color:#eee; margin:0; padding:24px;}
+    h1 { color:#7c5cff; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;}
+    input[type=text] { padding:8px; border-radius:6px; border:1px solid #333; background:#1a1d29; color:#eee; width:260px;}
+    button, a.btn { padding:8px 14px; background:#7c5cff; color:#fff; border:none; border-radius:6px;
+           text-decoration:none; cursor:pointer; font-size:14px;}
+    table { width:100%; border-collapse:collapse; background:#1a1d29; border-radius:10px; overflow:hidden;}
+    th, td { padding:10px 14px; text-align:right; border-bottom:1px solid #2a2d3a;}
+    th { background:#20232f; color:#9d8cff;}
+    tr:hover { background:#20232f; }
+    .flash { background:#1f3a24; color:#8dffb0; padding:8px; border-radius:6px; margin-bottom:14px;}
+    .banned { color:#ff6b6b; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <h1>👥 المستخدمون</h1>
+    <div>
+      <a class="btn" href="{{ url_for('logout') }}">تسجيل خروج</a>
+    </div>
+  </div>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}{% for m in messages %}<div class="flash">{{ m }}</div>{% endfor %}{% endif %}
+  {% endwith %}
+
+  <form method="get" style="margin-bottom:16px;">
+    <input type="text" name="q" placeholder="بحث بالـ ID أو اليوزر" value="{{ search }}">
+    <button type="submit">بحث</button>
+  </form>
+
+  <table>
+    <tr><th>User ID</th><th>Username</th><th>الرصيد</th><th>تاريخ التسجيل</th><th></th></tr>
+    {% for u in users %}
+    <tr>
+      <td>{{ u.user_id }}</td>
+      <td>{{ u.username or '-' }}</td>
+      <td>{{ '%.2f' % u.balance }}</td>
+      <td>{{ u.created_at }}</td>
+      <td><a class="btn" href="{{ url_for('user_detail', user_id=u.user_id) }}">إدارة</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5">لا يوجد مستخدمون</td></tr>
+    {% endfor %}
+  </table>
+
+  <div style="margin-top:16px;">
+    {% if page > 1 %}<a class="btn" href="?q={{ search }}&page={{ page-1 }}">السابق</a>{% endif %}
+    <a class="btn" href="?q={{ search }}&page={{ page+1 }}">التالي</a>
+  </div>
+</body>
+</html>

@@ -16,6 +16,9 @@ Telegram Mini App auth pattern.
 
 Run: python webapp_api.py   (separate process from bot.py and admin_panel.py)
 """
+from flask import Flask
+app = Flask(__name__)
+
 @app.route('/')
 def home():
     return "Welcome! Crash Game Web is Online 🚀"

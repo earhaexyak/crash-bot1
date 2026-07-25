@@ -16,7 +16,10 @@ Telegram Mini App auth pattern.
 
 Run: python webapp_api.py   (separate process from bot.py and admin_panel.py)
 """
-
+@app.route('/')
+def home():
+    return "Welcome! Crash Game Web is Online 🚀"
+  
 import hashlib
 import hmac
 import json
